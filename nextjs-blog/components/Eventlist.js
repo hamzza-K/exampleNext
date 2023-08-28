@@ -9,7 +9,12 @@ function Eventlist() {
     useEffect(() => {
         async function fetchData() {
             try {
-                const response = await axios.get("https://myapp-shtaldaidq-uc.a.run.app/")
+                const response = await axios.post("https://myapp-shtaldaidq-uc.a.run.app/fetch-records/", {
+                    table_name: "events",
+                    columns: ["event_name", "event_location", "event_date"],
+                    filter: {},
+                    sort: {}
+                })
                 setEvents(response.data);
             } catch (error) {
                 console.error("Error fetch data", error);
@@ -24,7 +29,7 @@ function Eventlist() {
             <h1>Events List</h1>
             <ul>
                 {events.map(event => (
-                    <li key={event.id}>{event.event_name}</li>
+                    <li key={event.id}>{event.event_name} {event.event_location} {event.event_date}</li>
                 ))}
             </ul>
         </div>
